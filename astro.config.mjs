@@ -100,45 +100,17 @@ function rehypeCodeBlock() {
   };
 }
 
-/**
- * Rehype plugin — prepends the base path (/pocket-docs) to all internal
- * markdown links so they resolve correctly on GitHub Pages.
- * Skips external URLs, anchors, and links that already have the prefix.
- */
-function rehypeBaseLinks() {
-  const base = '/pocket-docs';
-  return function (tree) {
-    function walk(node) {
-      if (!node.children) return;
-      for (const child of node.children) {
-        if (
-          child.type === 'element' &&
-          child.tagName === 'a' &&
-          child.properties &&
-          typeof child.properties.href === 'string'
-        ) {
-          const href = child.properties.href;
-          if (href.startsWith('/') && !href.startsWith(base + '/') && href !== base) {
-            child.properties.href = base + href;
-          }
-        }
-        walk(child);
-      }
-    }
-    walk(tree);
-  };
-}
 
 export default defineConfig({
   site: 'https://docs.pocket.network',
-  base: '/pocket-docs',
+  base: '/',
   output: 'static',
   integrations: [
     mdx(),
     sitemap(),
   ],
   markdown: {
-    rehypePlugins: [rehypeCodeBlock, rehypeBaseLinks],
+    rehypePlugins: [rehypeCodeBlock],
     shikiConfig: {
       themes: {
         light: 'github-light',
