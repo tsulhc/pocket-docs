@@ -797,6 +797,12 @@ a.card:hover {
   border-radius: var(--radius-xl);
 }
 
+.card-icon-svg {
+  display: block;
+  margin: 0 auto var(--space-4);
+  flex-shrink: 0;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    7. DEPRECATION BANNER
    ═══════════════════════════════════════════════════════════════ */
